@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Search view -->
+    <record id="omydoo_equipment_search" model="ir.ui.view">
+        <field name="name">omydoo_equipment_search</field>
+        <field name="model">equipment.omydoo</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="owner_user_id" />
+                <field name="equipment_category" />
+                <field name="serial_no" />
+                <filter name="unassigned" string="Non Assigné"
+                    domain="[('owner_type', '=', 'unassigned')]" />
+                <filter name="out_of_order" string="Hors Service"
+                    domain="[('out_of_order', '=', 'True')]" />
+
+                <group string="Regrouper par...">
+                    <filter string='Catégorie' name="category" domain="[]"
+                        context="{'group_by': 'equipment_category'}" />
+                    <filter string='Employé' name="employee" domain="[]"
+                        context="{'group_by': 'owner_user_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Equipment Kanban View -->
+    <record id="equipment_view_kanban_inherited_omydoo" model="ir.ui.view">
+        <field name="name">equipment_view_kanban_inherited_omydoo</field>
+        <field name="model">equipment.omydoo</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="name" />
+                <field name="owner_type" />
+                <field name="owner_user_id" />
+                <field name="equipment_location" />
+                <field name="serial_no" />
+                <field name="color" />
+                <field name="equipment_category" />
+                <field name="used_other" />
+                <templates>
+                    <t t-name="kanban-tooltip">
+                        <ul class="oe_kanban_tooltip">
+                            <li t-if="record.serial_no.raw_value">
+                                <b>Serial Number:</b>
+                                <t t-esc="record.serial_no.value" />
+                            </li>
+                            <li t-if="record.model.raw_value">
+                                <b>Model Number:</b>
+                                <t t-esc="record.model.value" />
+                            </li>
+                        </ul>
+                    </t>
+                    <t t-name="kanban-box">
+                        <div
+                            t-attf-class="{{!selection_mode ? 'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) : ''}} oe_kanban_card oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown" t-if="!selection_mode">
+
+                                <a role="button" class="dropdown-toggle o-no-caret btn"
+                                    data-toggle="dropdown" data-display="static" href="#"
+                                    aria-label="Dropdown menu" title="Dropdown menu">
+                                    <span class="fa fa-ellipsis-v" />
+                                </a>
+                                <div class="dropdown-menu" role="menu">
+                                    <t t-if="widget.editable">
+                                        <a role="menuitem" type="edit" class="dropdown-item">
+                                            Editer...</a>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <a role="menuitem" type="delete" class="dropdown-item">
+                                            Supprimer</a>
+                                    </t>
+                                    <div role="separator" class="dropdown-divider"></div>
+                                    <div role="separator" class="dropdown-header">Couleur</div>
+                                    <ul class="oe_kanban_colorpicker" data-field="color" />
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content" tooltip="kanban-tooltip">
+                                <div class="o_kanban_record_top">
+                                    <b class="o_kanban_record_title">
+                                        <field name="name" />
+                                        <small>
+                                            <span t-if="record.model.raw_value"> (<field
+                                                    name="model" />)</span>
+                                        </small>
+                                    </b>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div t-if="record.serial_no.raw_value">
+                                        <field name="serial_no" />
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <field name="owner_user_id" widget='many2one_avatar' />
+                                    <field name="equipment_location" />
+                                </div>
+                            </div>
+                            <div class="oe_clear"></div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="omd_equipment_view_tree" model="ir.ui.view">
+        <field name="name">omd_equipment_view_tree</field>
+        <field name="model">equipment.omydoo</field>
+        <field name="arch" type="xml">
+            <tree string="Equipements">
+                <field name="name" />
+                <field name="owner_type" string="Type d'utilisateur" />
+                <field name="owner_user_id" />
+                <field name="equipment_location" />
+                <field name="model" />
+                <field name="serial_no" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Equipment View Form -->
+    <record id="equipment_view_form_inherited_omydoo" model="ir.ui.view">
+        <field name="name">equipment_view_form_inherited_omydoo</field>
+        <field name="model">equipment.omydoo</field>
+        <field name="arch" type="xml">
+            <form string="Equipments">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string='Nom Equipement' />
+                        <h1>
+                            <field name="name" string="Name" placeholder="e.g. LED Monitor" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="out_of_order"></field>
+                            <field name="equipment_category" />
+                            <field name="company_id" groups="base.group_multi_company"
+                                options="{'no_create': True}" />
+                            <field name="owner_type" string="Utilisé par" widget='radio' />
+                            <field name="owner_user_id" string="Employé"
+                                invisible="owner_type != 'employee'" />
+                            <field name="equipment_location" string="Localisation"
+                                invisible="owner_type != 'office'" />
+                            <field name="used_other" string="Autre"
+                                invisible="owner_type != 'other'" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="note" />
+                        </page>
+                        <page string="Informations Equipement" name="product_information">
+                            <group>
+                                <group>
+                                    <field name="partner_id" />
+                                    <field name="model" />
+                                    <field name="serial_no" />
+                                </group>
+                                <group>
+                                    <field name="purchase_date" />
+                                    <field name="purchase_price" />
+                                    <field name="warranty_date" />
+                                    <field name="invoice_id" />
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Equipment menu action -->
+    <record id="employee_equipment_action" model="ir.actions.act_window">
+        <field name="name">Equipements</field>
+        <field name="res_model">equipment.omydoo</field>
+        <field name="view_mode">kanban,tree,form</field>
+
+    </record>
+
+    <!-- Menu in employee view -->
+    <menuitem
+        id="menu_employee_equipments_main"
+        name="Equipements"
+        parent="hr.menu_hr_root"
+        groups="hr.group_hr_manager,hr.group_hr_user,base.group_user"
+        action="employee_equipment_action"
+        sequence="20" />
+
+
+</odoo>

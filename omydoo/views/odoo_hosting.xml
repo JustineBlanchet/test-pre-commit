@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="res_partner_hosting_action" model="ir.actions.act_window">
+        <field name="name">Hébergement</field>
+        <field name="res_model">odoo.hosting</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+    <record id="tree_view_omydoo_hosting" model="ir.ui.view">
+        <field name="model">odoo.hosting</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name='name' />
+                <field name="color" widget='color_picker' />
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="res_partner_menu_odoo" action="res_partner_hosting_action"
+        name="Odoo" parent="contacts.menu_contacts" sequence="3" />
+
+    <menuitem id="res_partner_hosting_omydoo" action="res_partner_hosting_action"
+        name="Hébergement" parent="omydoo.res_partner_menu_odoo" />
+</odoo>

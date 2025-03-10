@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="odoo_sh_hosting" model="odoo.hosting">
+            <field name="name">Odoo SH</field>
+            <field name="color">1</field>
+        </record>
+
+        <record id="cloudpepper_hosting" model="odoo.hosting">
+            <field name="name">Cloudpepper</field>
+            <field name="color">2</field>
+        </record>
+
+        <record id="odoo_online_hosting" model="odoo.hosting">
+            <field name="name">Odoo Online</field>
+            <field name="color">3</field>
+        </record>
+    </data>
+</odoo>

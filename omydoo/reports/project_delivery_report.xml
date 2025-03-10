@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_project_delivery" model="ir.actions.report">
+        <field name="name">Changelog</field>
+        <field name="model">project.delivery</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">omydoo.report_project_delivery</field>
+        <field name="print_report_name">"Changelog"</field>
+        <field name="binding_model_id" ref="omd_project_delivery.model_project_delivery" />
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <template id="report_project_delivery">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <h3>Changelog de livraison</h3>
+                    <div class='fw-bold'>Projet: 
+                        <span class="fw-normal" t-field="doc.project_id.name" />
+                    </div>
+                    <br />
+                    <div t-if='doc.date_planned' class='fw-bold'>Date de livraison prévue: 
+                        <span class="fw-normal" t-field="doc.date_planned" />
+                    </div>
+                    <br />
+                    <div class='fw-bold'><h3>Livrables</h3>
+                        <span t-field="doc.patch_notes" />
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

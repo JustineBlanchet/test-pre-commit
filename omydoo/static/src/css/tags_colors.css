@@ -1,0 +1,11 @@
+.green-tag .o_tag {
+    background-color: #95ca90 !important;
+    color: rgb(45, 78, 30) !important;
+    border-color: #95ca90 !important;
+}
+
+.red-tag .o_tag {
+    background-color: #c97a7a !important;
+    color: rgb(97, 35, 35) !important;
+    border-color: #c97a7a !important;
+}

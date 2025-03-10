@@ -1,0 +1,16 @@
+[MASTER]
+load-plugins=pylint_odoo
+score=n
+
+[ODOOLINT]
+valid-odoo-versions=17.0
+manifest-required-keys=license
+
+[MESSAGES CONTROL]
+disable=all
+enable=consider-merging-classes-inherited, context-overridden, deprecated-odoo-model-method, manifest-data-duplicated, manifest-required-key, method-compute, method-inverse, method-required-super, method-search, missing-return, no-write-in-compute, odoo-exception-warning, print-used, prohibited-method-override, renamed-field-parameter, resource-not-exist, sql-injection, test-folder-imported, invalid-name, no-else-raise, no-else-return
+
+[REPORTS]
+msg-template={path}:{line}: [{msg_id}({symbol}), {obj}] {msg}
+output-format=colorized
+reports=no

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="subscription_portal_sidebar_inherit"
+        inherit_id="sale_subscription.subscription_portal_sidebar"
+    >
+        <xpath expr="//h1" position="replace">
+            <h1>
+                <span
+                    t-field="sale_order.amount_untaxed"
+                    t-options='{"widget": "monetary","display_currency": sale_order.currency_id}'
+                />
+            </h1>
+        </xpath>
+    </template>
+</odoo>

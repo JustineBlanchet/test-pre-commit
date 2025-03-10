@@ -1,0 +1,54 @@
+default_language_version:
+  node: "18.17.0"
+
+repos:
+  - repo: https://github.com/OCA/odoo-pre-commit-hooks
+    rev: v0.1.1
+    hooks:
+      - id: oca-checks-odoo-module
+        args: 
+         - --no-exit
+         - --disable=xml-deprecated-tree-attribute,xml-view-dangerous-replace-low-priority,xml-dangerous-qweb-replace-low-priority
+  - repo: local
+    hooks:
+      - id: prettier-xml
+        name: Format XML avec Prettier
+        entry: prettier
+        args:
+          - --write
+          - --config
+          - .prettierrc.json
+          - --plugin=@prettier/plugin-xml
+          - --list-different
+          - --ignore-unknown
+        types: [text]
+        files: \.xml$
+        language: node
+        additional_dependencies:
+          - "prettier@3.0.3"
+          - "@prettier/plugin-xml@3.0.0"
+  - repo: https://github.com/myint/autoflake
+    rev: v2.3.1
+    hooks:
+      - id: autoflake
+        args:
+          - --expand-star-imports
+          - --ignore-init-module-imports
+          - --in-place
+          - --remove-all-unused-imports
+          - --remove-duplicate-keys
+          - --remove-unused-variables
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+        args: ["--line-length=100"]
+  - repo: https://github.com/OCA/pylint-odoo
+    rev: v9.3.2
+    hooks:
+      - id: pylint_odoo
+        name: Vérification pylint-odoo avec fichier pylintrc
+        args:
+          - --rcfile=.pylintrc
+          - --fail-on=R8180,W8160,W8125,W8116,F8101,C0103,R1720,R1705
+        verbose: true

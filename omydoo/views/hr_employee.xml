@@ -1,0 +1,49 @@
+<odoo>
+
+    <record model="ir.ui.view" id="view_employee_form_inherited_omydoo">
+        <field name="name">view_employee_form_inherited_omydoo</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='coach_id']" position="after">
+                <field name="github"></field>
+            </xpath>
+
+            <!-- Ajout des champs concernant les instances des clients dans une page du notebook -->
+            <xpath expr="//page[@name='hr_settings']" position="before">
+                <page name="mensuration" string="Mensurations">
+                    <group name="container">
+                        <group name="p1_mensuration">
+                            <label for="omydoo_tour_poitrine" />
+                            <div class="text-nowrap">
+                                <field name="omydoo_tour_poitrine" />
+                                <span style="margin-left:10px" class="oe_inline">cm</span>
+                            </div>
+                            <label for="omydoo_longueur_buste" />
+                            <div class="text-nowrap">
+                                <field name="omydoo_longueur_buste" />
+                                <span style="margin-left:10px" class="oe_inline">cm</span>
+                            </div>
+                            <field name="omydoo_taille_haut" />
+                            <field name="omydoo_pointure" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    name="action_open_employee_equipments"
+                    type='object'
+                    class="o_stat_button"
+                    icon="fa-cubes">
+                    <field name="equipment_count" widget='statinfo' string='Equipements' />
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

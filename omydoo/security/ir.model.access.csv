@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_omydoo_apps,omydoo.apps,model_omydoo_apps,base.group_user,1,1,1,1
+access_equipment_omydoo,omydoo.equipment.omydoo,model_equipment_omydoo,base.group_user,1,1,1,1
+access_equipment_category,omydoo.equipment.category,model_equipment_category,base.group_user,1,1,1,1
+access_equipment_location,omydoo.equipment.location,model_equipment_location,base.group_user,1,1,1,1
+access_omydoo_material,omydoo.material,model_omydoo_material,base.group_user,1,1,1,1
+access_module_options,module.options,model_module_options,base.group_user,1,1,1,1
+access_push_tag,access.push.tag,model_push_tag,base.group_user,1,1,1,1
+access_odoo_hosting,access.odoo.hosting,model_odoo_hosting,base.group_user,1,1,1,1
+access_odoo_version,access.odoo.version,model_odoo_version,base.group_user,1,1,1,1
+access_project_task_modification,access.project.task.modification,model_project_task_modification,project.group_project_user,1,0,1,0
+access_project_task_modification_reason_user,access.project.task.modification.reason.user,model_project_task_modification_reason,project.group_project_user,1,0,0,0
+access_project_task_modification_reason_admin,access.project.task.modification.reason.admin,model_project_task_modification_reason,omydoo.group_omydoo_team_leader,1,1,1,1

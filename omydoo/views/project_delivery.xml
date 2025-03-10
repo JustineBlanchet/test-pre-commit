@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="omd_project_delivery_view_form_inherited" model="ir.ui.view">
+        <field name="name">omd_project_delivery_view_form_inherited</field>
+        <field name="model">project.delivery</field>
+        <field name="inherit_id" ref="omd_project_delivery.project_delivery_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_planned']" position="after">
+                <field name="customer_notified" />
+            </xpath>
+
+            <xpath expr="//tree/field[@name='user_ids']" position="after">
+                <field name="demandeur_ids" widget='many2many_tags' />
+                <field name="push_tag_ids" widget='many2many_tags' options="{'color_field': 'color'}" />
+            </xpath>
+
+            <xpath expr="//tree/field[@name='user_ids']" position="attributes">
+                <attribute name="string">Responsables</attribute>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page name="patchnotes" string="Patch Notes">
+                    <field name="patch_notes" />
+                </page>
+            </xpath>
+
+            <xpath expr="//header" position="inside">
+                <button string="Exporter le Changelog" name="export_patch_note" type="object" class="oe_highlight" />
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="crm_lead_view_form_omydoo" model="ir.ui.view">
+            <field name="name">crm.lead.form.omydoo</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//label[@for='phone']" position="before">
+                    <field name="mobile" widget="phone" string="Mobile" />
+                </xpath>
+
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="medium_id" string='Moyen' />
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='internal_notes']" position="inside">
+                    <div>
+                        <h2 style="background-color:#694A61; color:white;">Informations générales</h2>
+                        <div>
+                            <label for="chef_projet" string="Chef de projet chez le partenaire"
+                                style="margin-right: 10px;" />
+                            <field name="chef_projet" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="nom_entreprise_client"
+                                string="Nom de l'entreprise du client" />
+                            <field name="nom_entreprise_client" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="adresse_entreprise_client"
+                                string="Adresse de l'entreprise (complète)" />
+                            <field name="adresse_entreprise_client" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="tva" string="TVA" />
+                            <field name="tva" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="secteur_activite" string="Secteur d'activité" />
+                            <field name="secteur_activite" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="nom_prenom_client" string="Nom et prénom du client" />
+                            <field name="nom_prenom_client" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="position_client"
+                                string="Position du client (CEO, responsable commercial, etc)" />
+                            <field name="position_client" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="telephone_client" string="Numéro de téléphone" />
+                            <field name="telephone_client" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="email_client"
+                                string="Adresse mail du ou des clients (pour l'envoi du devis)" />
+                            <field name="email_client" style="margin-left:10px;" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 style="background-color:#694A61; color:white;">Informations
+                            contractuelles</h2>
+                        <div>
+                            <label for="type_abonnement" string="Type d'abonnement" />
+                            <field name="type_abonnement" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="hebergement" string="Hébergement" />
+                            <field name="hebergement" style="margin-left:10px;" />
+                        </div>
+                        <div invisible="hebergement != 'odoosh'">
+                            <label for="workers" string="Combien de workers?" />
+                            <field name="workers" style="margin-left:10px;" />
+                            <label for="staging" string="Combien de STAGING?" />
+                            <field name="staging" style="margin-left:10px;" />
+                            <label for="gb" string="Combien de Gb ?" />
+                            <field name="gb" style="margin-left:10px;" />
+
+                        </div>
+                        <div>
+                            <label for="nombre_utilisateurs" string="Nombre d'utilisateurs" />
+                            <field name="nombre_utilisateurs" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="nombre_utilisateurs_terme"
+                                string="Nombre d'utilisateurs à terme" />
+                            <field name="nombre_utilisateurs_terme" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="nombre_employes" string="Nombre d'employés" />
+                            <field name="nombre_employes" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="modules_interesses" string="Modules intéressés" />
+                            <field name="modules_interesses" widget="many2many_tags"
+                                style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="departement_travail_odoo"
+                                string="Quel département va travailler avec Odoo / ne vas PAS travailler avec Odoo ?" />
+                            <field name="departement_travail_odoo" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="description_flux_entreprise"
+                                string="Description la plus complète des flux de l'entreprise" />
+                            <field name="description_flux_entreprise" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="informations_negociation"
+                                string="Informations importantes à savoir pour la négociation du contrat" />
+                            <field name="informations_negociation" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="systeme_actuel"
+                                string="Système actuel (que Odoo va remplacer)" />
+                            <field name="systeme_actuel" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="raison_recherche_nouvel_erp"
+                                string="Pourquoi cherchent-ils un nouvel ERP ?" />
+                            <field name="raison_recherche_nouvel_erp" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="problemes_actuels"
+                                string="Quels sont les problèmes actuels rencontrés ?" />
+                            <field name="problemes_actuels" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="logiciels_interfacer_odoo"
+                                string="Quels logiciels doivent être interfacés à Odoo ?" />
+                            <field name="logiciels_interfacer_odoo" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="developpements_specifiques"
+                                string="Quels développements spécifiques il y aura-t-il (si il y en a) ?" />
+                            <field name="developpements_specifiques" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="risque_potentiel_projet"
+                                string="Est-ce qu'il y aurait un risque potentiel pour le projet ? (finance instable, manque de ressource, manque de temps pour l'implémentation, etc)" />
+                            <field name="risque_potentiel_projet" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="date_lancement_projet"
+                                string="Date de mise en lancement du projet ou de signature" />
+                            <field name="date_lancement_projet" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="budget_implementation" string="Budget pour l'implémentation" />
+                            <field name="budget_implementation" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="contrat_multi_annee"
+                                string="Contrat Odoo multi-année, si oui, combien?" />
+                            <field name="contrat_multi_annee" style="margin-left:10px;" />
+                        </div>
+                    </div>
+                    <div>
+                        <h2 style="background-color:#694A61; color:white;">Référence projet</h2>
+                        <div>
+                            <label for="petite_description" string="Petite description" />
+                            <field name="petite_description" style="margin-left:10px;" />
+                        </div>
+                        <div>
+                            <label for="longue_description" string="Longue description" />
+                            <field name="longue_description" style="margin-left:10px;" />
+                        </div>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="omd_crm_lead_view_form_inherited" model="ir.ui.view">
+            <field name="name">crm.lead.form.omydoo</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="omd_expected_revenue.omd_crm_lead_view_form_inherited" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='client_order_ref']" position="attributes">
+                    <attribute name="string">Sujet</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

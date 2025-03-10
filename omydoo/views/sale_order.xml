@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="omd_view_order_form_inherited" model="ir.ui.view">
+        <field name="name">omd_view_order_form_inherited</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='sale_header']/group[2]" position="inside">
+                <xpath expr="//field[@name='client_order_ref']" position="move" />
+            </xpath>
+
+            <xpath expr="//field[@name='client_order_ref']" position="attributes">
+                <attribute name="string">Sujet</attribute>
+            </xpath>
+
+            <xpath expr="//group[@name='sale_info']/field[@name='invoice_status']" position="replace">
+                <field invisible="state != 'sale'" name="invoice_status" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="omd_view_order_tree_inherited" model="ir.ui.view">
+        <field name="name">omd_view_order_tree_inherited</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_to_invoice']" position="attributes">
+                <attribute name="sum">Amount to invoice</attribute>
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="omd_view_partner_kanban_inherited">
+        <field name="name">omd_view_partner_kanban_inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[hasclass('oe_kanban_bottom_left')]"
+                position="after">
+                <div class='tag_kanban'>
+                    <field name="sla_ids" widget="many2many_tags"
+                        options="{'color_field': 'sla_def_col'}" nolabel='1' readonly='1' />
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_form_inherited">
+        <field name="name">view_partner_form_inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+
+
+            <xpath expr="//h1/field[@id='individual']" position="after">
+                <field name="sla_ids_tag" widget="many2many_tags"
+                    options="{'color_field': 'sla_def_col'}" nolabel='1' readonly='1'
+                    class='tag_position' />
+            </xpath>
+
+            <xpath expr="//group/group[1]" position="inside">
+                <field name="odoo_hosting_id" />
+                <field name="odoo_version_id" />
+                <field name="type_eece_omydoo" />
+                <field name="project_manager_id" />
+            </xpath>
+
+            <xpath expr="//field[@name='category_id']" position="after">
+                <xpath expr="//field[@name='sla_ids']" position="move" />
+            </xpath>
+            <xpath expr="//group[2]/field[@name='sla_ids']" position="attributes">
+                <attribute name="options">{'color_field': 'sla_def_col'}</attribute>
+            </xpath>
+
+            <xpath expr="//sheet/div[2]/field[@name='company_type']" position="after">
+                <field id='is_project_manager' name="is_project_manager"
+                    string="Est un chef de projet" />
+                <label for='is_project_manager'></label>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="tree_view_omydoo_material" model="ir.ui.view">
+        <field name="model">omydoo.material</field>
+        <field name="arch" type="xml">
+            <tree class="custom_column" editable="bottom">
+                <field name='brand' />
+                <field name='model' />
+                <field name='serial_number' />
+                <field name='install_date' />
+                <field name='waranty_expiration_date' />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_tree_inherited_omydoo">
+        <field name="name">view_partner_tree_inherited_omydoo</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//tree" position="inside">
+                <field name="odoo_hosting_id" optional="hide" />
+                <field name="odoo_version_id" optional="hide" />
+                <field name="type_eece_omydoo" optional="hide" />
+                <field name="apps_ids" widget="many2many_tags" options="{'color_field': 'color'}"
+                    optional="hide" />
+                <field name="nbu_instance_omydoo" optional="hide" />
+                <field name="user_db_omydoo" optional="hide" />
+                <field name="passwd_db_omydoo" optional="hide" />
+                <field name="port_db_omydoo" optional="hide" />
+                <field name="ip_db_omydoo" optional="hide" />
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

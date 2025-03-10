@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="push_tag_view_tree" model="ir.ui.view">
+        <field name="name">push.tag.view.tree</field>
+        <field name="model">push.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Étiquettes de push" editable='top'>
+                <field name="name" />
+                <field name="color" widget="color_picker" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="push_tags_menu_action" model="ir.actions.act_window">
+        <field name="name">Étiquettes de push</field>
+        <field name="res_model">push.tag</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem
+        id="push_tags_menu"
+        name="Étiquettes de push"
+        action="push_tags_menu_action"
+        parent="project.menu_project_config"
+        sequence="10" />
+
+</odoo>

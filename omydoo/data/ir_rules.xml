@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="project.project_task_rule_portal" model="ir.rule">
+        <field name="domain_force">[
+            ('project_id.privacy_visibility', '=', 'portal'),
+            ('active', '=', True),
+            '|',
+            ('project_id.message_partner_ids', 'child_of', [user.partner_id.commercial_partner_id.id]),
+            ('message_partner_ids', 'child_of', [user.partner_id.commercial_partner_id.id]),
+            ('message_partner_ids', 'child_of', [user.partner_id.id]), # Vérifier si l'utilisateur est abonné à la tâche
+            ]
+        </field>
+    </record>
+
+    <record id="project.project_task_rule_portal" model="ir.rule">
+        <field eval="0" name="active" />
+    </record>
+
+    <record id="portal_user_task_access_rule" model="ir.rule">
+        <field name="name">Portal User Task View Restriction!!!!</field>
+        <field name="model_id" ref="project.model_project_task" />
+        <field name="domain_force">[ ('message_partner_ids', 'in', [user.partner_id.id])] </field>
+        <field eval="[(4, ref('base.group_portal'))]" name="groups" />
+        <field eval="True" name="perm_read" />
+        <field eval="False" name="perm_write" />
+        <field eval="False" name="perm_create" />
+        <field eval="False" name="perm_unlink" />
+    </record>
+</odoo>

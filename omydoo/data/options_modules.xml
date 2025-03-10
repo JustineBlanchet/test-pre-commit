@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+        <record id="option_ventes" model="module.options">
+            <field name="name">Ventes</field>
+        </record>
+        <record id="option_achats" model="module.options">
+            <field name="name">Achats</field>
+        </record>
+        <record id="option_inventaire" model="module.options">
+            <field name="name">Livraison</field>
+        </record>
+        <record id="option_compttabilité" model="module.options">
+            <field name="name">Comptabilité</field>
+        </record>
+        <record id="option_ressources_humaines" model="module.options">
+            <field name="name">Ressources humaines</field>
+        </record>
+        <record id="option_fabrication" model="module.options">
+            <field name="name">Fabrication</field>
+        </record>
+        <record id="option_projets" model="module.options">
+            <field name="name">Projets</field>
+        </record>
+        <record id="option_crm" model="module.options">
+            <field name="name">CRM</field>
+        </record>
+        <record id="option_assistance" model="module.options">
+            <field name="name">Assistance</field>
+        </record>
+        <record id="option_site_web" model="module.options">
+            <field name="name">Site web</field>
+        </record>
+        <record id="option_point_vente" model="module.options">
+            <field name="name">Point de vente</field>
+        </record>
+        <record id="option_facturation" model="module.options">
+            <field name="name">Facturation</field>
+        </record>
+        <record id="option_contacts" model="module.options">
+            <field name="name">Contacts</field>
+        </record>
+        <record id="option_calendrier" model="module.options">
+            <field name="name">Calendrier</field>
+        </record>
+        <record id="option_discution" model="module.options">
+            <field name="name">Discussion</field>
+        </record>
+        <record id="option_employers" model="module.options">
+            <field name="name">Employés</field>
+        </record>
+    </data>
+
+</odoo>

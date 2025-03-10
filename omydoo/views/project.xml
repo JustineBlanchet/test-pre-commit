@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="omd_edit_project" model="ir.ui.view">
+        <field name="name">omd_edit_project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group/group/field[@name='company_id']" position="after">
+                <field name="key" />
+            </xpath>
+
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="referent_dev_id" widget="many2one_avatar_user" />
+            </xpath>
+
+            <xpath expr="//page[@name='settings']" position="after">
+                <page name="settings_omd_client" string="Paramètres Clients Omydoo">
+                    <group>
+                        <field
+                            name="etape_depart_client_omd"
+                            string="Etape de départ pour les taches crées par les clients"
+                        />
+                        <field invisible="1" name="type_ids" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_task_inherit" model="ir.ui.view">
+        <field name="name">project.task.tree.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.project_task_view_tree_main_base" />
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <field class="green-tag" name="linked_task_ids" widget="many2many_tags" />
+                <field class="red-tag" name="blocked_by_task_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_project_task_inherit" model="ir.ui.view">
+        <field name="name">project.task.tree.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.project_task_view_tree_main_base" />
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <field class="green-tag" name="linked_task_ids" widget="many2many_tags" />
+                <field class="red-tag" name="blocked_by_task_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+
+    <record id="omd_view_project_kanban_inherited" model="ir.ui.view">
+        <field name="name">omd_view_project_kanban_inherited</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="referent_dev_id" />
+            </xpath>
+
+            <xpath
+                expr="//div[hasclass('oe_kanban_bottom_right')]/field[@name='user_id']"
+                position="after"
+            >
+                <field
+                    name="referent_dev_id"
+                    t-if="record.referent_dev_id.raw_value"
+                    widget="many2one_avatar_user"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="omd_project_task_type_inherited" model="ir.ui.view">
+        <field name="name">omd.project.task.type.inherited</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_edit" />
+        <field name="arch" type="xml">
+            <field name="fold" position="after">
+                <field name="default_steps" />
+            </field>
+        </field>
+    </record>
+
+    <record id="project_task_kanban_inherited" model="ir.ui.view">
+        <field name="name">project.task.kanban.inherited</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//t[@t-name='kanban-box']//div[hasclass('o_kanban_record_headings')]/strong"
+                position="before"
+            >
+                <div class="o_kanban_record_top">
+                    <div class="o_kanban_record_headings">
+                        <field name="key_task" />
+                    </div>
+                    <field name='demandeur_ids' readonly='1' widget='many2many_avatar_user' />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_task_form_inherited" model="ir.ui.view">
+        <field name="name">project.task.form.inherited</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]/h1" position="before">
+                <h2>
+                    <field class='oe_inline' name="key_task" />
+                </h2>
+            </xpath>
+
+            <xpath expr="//field[@name='user_ids']" position="attributes">
+                <attribute name="string">Responsables</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='user_ids']" position="after">
+                <field name="demandeur_ids" widget="many2many_avatar_user" />
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="referent_id" />
+                <field name="development_time" widget='float_time' />
+                <field name="testing_project_time" widget='float_time' />
+            </xpath>
+
+            <xpath expr="//div[@id='date_deadline_and_recurring_task']" position="after">
+                <field
+                    class="green-tag"
+                    name="linked_task_ids"
+                    options="{'no_create': True}"
+                    placeholder="Ajouter des tâches liées..."
+                    widget="many2many_tags"
+                />
+                <field
+                    class="red-tag"
+                    invisible="not blocked_by_task_ids"
+                    name="blocked_by_task_ids"
+                    options="{'no_create': True}"
+                    readonly="1"
+                    widget="many2many_tags"
+                />
+            </xpath>
+
+            <xpath expr="//page[@name='description_page']" position="attributes">
+                <attribute name="string">Demandes</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='description_page']" position="after">
+                <page name="wiki_page" string="Wiki">
+                    <field name="cii_field" type="html" />
+                </page>
+                <page name="developer_page" string="Développement">
+                    <field name="developer_description" />
+                </page>
+            </xpath>
+
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field
+                    name="push_tag_ids"
+                    options="{'color_field': 'color'}"
+                    widget='many2many_tags'
+                />
+                <field name="duplicable_development" />
+            </xpath>
+
+            <xpath expr="//header" position="inside">
+                <button
+                    class="oe_highlight"
+                    name="ask_for_task_modification"
+                    string="Faire une demande de modification"
+                    type="object"
+                />
+            </xpath>
+
+            <xpath expr="//page[@name='extra_info']/group/group[2]" position="inside">
+                <field name="in_progress_date_stage" />
+                <field name="testing_dev_date_stage" />
+                <field name="testing_project_date_stage" />
+                <field name="modification_date_stage" />
+                <field name="testing_customer_date_stage" />
+                <field name="validation_date_stage" />
+                <field name="ready_to_push_date_stage" />
+                <field name="on_prod_date_stage" />
+                <field name="tutorial_link" widget='url' />
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page name="modifications_page" string="Modifications">
+                    <field name="modifications_ids">
+                        <tree create='0'>
+                            <field name="user_id" widget='many2one_avatar_user' />
+                            <field name="date" />
+                            <field name="reason_id" />
+                            <field name="comment" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_task_search_omd" model="ir.ui.view">
+        <field name="name">view.task.search.omd</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//separator[last()]" position="after">
+                <field
+                    filter_domain="[('key_task','=',self)]"
+                    name="key_task"
+                    string="Numéro de tâche"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="omd_project_task_view_tree_main_base_inherit" model="ir.ui.view">
+        <field name="name">omd_project_task_view_tree_main_base_inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.project_task_view_tree_main_base" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='effective_hours']" position="before">
+                <field name="development_time" widget='float_time' />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="omd_view_task_tree2_inherit_sale_project_inherit" model="ir.ui.view">
+        <field name="name">omd_view_task_tree2_inherit_sale_project_inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="sale_project.view_task_tree2_inherit_sale_project" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='sale_line_id' and @groups='sales_team.group_sale_salesman']"
+                position="attributes"
+            >
+                <attribute name="readonly">0</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

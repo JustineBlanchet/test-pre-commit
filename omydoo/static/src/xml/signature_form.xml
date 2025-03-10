@@ -1,0 +1,20 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="Custom.SignatureForm_inherited" t-inherit="portal.SignatureForm" t-inherit-mode="extension">
+        <xpath expr="//form" position="before">
+                <div id="mymodal" class="modal" tabindex="-1" style="display:none">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                          </div>
+                            <div class="modal-body">
+                            <p>Merci de patienter pendant que nous traitons votre signature. Ce processus peut prendre quelques instants</p>
+                          </div>
+                            <div class="modal-footer">
+
+                          </div>
+                        </div>
+                      </div>
+                </div>
+        </xpath>
+    </t>
+</templates>

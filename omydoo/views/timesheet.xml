@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="omd_hr_timesheet_line_tree_inherit_inherit" model="ir.ui.view">
+        <field name="name">omd_hr_timesheet_line_tree_inherit_inherit</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="sale_timesheet.hr_timesheet_line_tree_inherit" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='so_line']" position="replace">
+                <field
+                    context="{'create': False}"
+                    groups="sales_team.group_sale_salesman"
+                    invisible="not allow_billable"
+                    name="so_line"
+                    optional="show"
+                    options="{'no_create': True, 'no_open': True}"
+                    widget="so_line_field"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

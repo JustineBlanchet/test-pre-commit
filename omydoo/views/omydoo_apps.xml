@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+
+        <record id="res_partner_appli_menu_config" model="ir.ui.view">
+            <field name="name">omydoo.apps.tree</field>
+            <field name="model">omydoo.apps</field>
+            <field name="arch" type="xml">
+                <tree editable="top" string="Application Liée" sample="1">
+                    <field name="name" />
+                    <field name="color" widget="color_picker" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="res_partner_appli_action" model="ir.actions.act_window">
+            <field name="name">Omydoo Applications Externes Liées</field>
+            <field name="res_model">omydoo.apps</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Aucune application liée aux instances n'a été trouvée. Il est temps d'en ajouter
+                    une!
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="res_partner_appli_menu_omydoo" action="res_partner_appli_action"
+            name="Omydoo Applications Liées" parent="omydoo.res_partner_menu_odoo" sequence="7" />
+
+    </data>
+</odoo>
